@@ -243,55 +243,6 @@
     }
   },
   {
-    "name": "vless-grpc-reality",
-    "link": "vless://$config_id@$server_ip:9443?security=reality&type=grpc&serviceName=xyz&flow=&sni=discordapp.com&fp=chrome&pbk=n1IsAplMbhyZMQbgu9Y_rS8_g3_VocvvHzWJRj4X6g8&sid=7ae6dcd52155d9c5#Reality grpc",
-    "cloudflare": false,
-    "inbound": {
-      "tag": "VLESS GRPC REALITY",
-      "listen": "0.0.0.0",
-      "port": 9443,
-      "protocol": "vless",
-      "settings": {
-        "clients": [
-          {
-            "email": "$config_id",
-            "flow": "",
-            "id": "$config_id"
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "grpc",
-        "grpcSettings": {
-          "serviceName": "xyz"
-        },
-        "security": "reality",
-        "realitySettings": {
-          "show": false,
-          "dest": "google.com:443",
-          "xver": 0,
-          "serverNames": [
-            "discordapp.com",
-            ""
-          ],
-          "privateKey": "KGUfexZUiN5YyXGmpXn6M5rOaMwj0B5wfkxIWqqnBhA",
-          "shortIds": [
-            "7ae6dcd52155d9c5"
-          ]
-        }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ]
-      }
-    }
-  },
-  {
     "name": "vless-hu-tls-cdn",
     "link": "vless://$config_id@$cf_clean_ip_domain:2087?type=httpupgrade&security=tls&fp=chrome&alpn=http%2F1.1&sni=$subdomain#vless httpupgrade cf",
     "cloudflare": true,
