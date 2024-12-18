@@ -1,4 +1,4 @@
-FROM teddysun/xray:1.8.16
+FROM teddysun/xray:24.12.15
 
 RUN apk update && apk add curl wget
 
