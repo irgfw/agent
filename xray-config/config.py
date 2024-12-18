@@ -221,7 +221,9 @@ xray_config = {
                 "outboundTag": "blocked",
                 "ip": [
                     "geoip:private",
-                    "ext:geoip_IR.dat:ir"
+                    "ext:geoip_IR.dat:ir",
+                    "ext:geoip_IR.dat:phishing",
+                    "ext:geoip_IR.dat:malware"
                 ]
             },
             {
@@ -238,7 +240,10 @@ xray_config = {
                     "regexp:.*\\.ir$",
                     "regexp:.*\\.xn--mgba3a4f16a$",
                     "ext:geosite_IR.dat:ir",
-                    "ext:geosite_IR.dat:category-ads-all"
+                    "ext:geosite_IR.dat:category-ads-all",
+                    "ext:geosite_IR.dat:phishing",
+                    "ext:geosite_IR.dat:malware"
+                    "ext:geosite_IR.dat:cryptominers"
                 ]
             }
         ]
