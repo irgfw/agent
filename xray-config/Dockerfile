@@ -1,4 +1,4 @@
-FROM teddysun/xray:1.8.16 AS xray-image
+FROM teddysun/xray:24.12.15 AS xray-image
 
 FROM python:3.11.9-alpine3.19
 
