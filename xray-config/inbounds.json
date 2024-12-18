@@ -50,7 +50,7 @@
   },
   {
     "name": "vless-hu-tls-direct",
-    "link": "vless://$config_id@$cf_clean_ip_domain:8080?type=httpupgrade&security=tls&fp=randomized&alpn=http%2F1.1&sni=$subdomain#vless httpupgrade tls cf",
+    "link": "vless://$config_id@$cf_clean_ip_domain:8080?type=httpupgrade&security=tls&fp=randomized&alpn=h2%2Chttp%2F1.1&sni=$subdomain#vless httpupgrade tls cf",
     "cloudflare": false,
     "inbound": {
       "tag": "VLESS HTTPUPGRADE TLS DIRECT",
@@ -70,7 +70,6 @@
       "streamSettings": {
         "network": "httpupgrade",
         "httpupgradeSettings": {
-          "path": "/vlhutldir"
         },
         "security": "tls",
         "tlsSettings": {
@@ -99,8 +98,7 @@
               ]
             }
           ],
-          "minVersion": "1.2",
-          "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+          "minVersion": "1.3"
         }
       },
       "sniffing": {
@@ -115,10 +113,10 @@
   },
   {
     "name": "vless-hu-tls-cdn",
-    "link": "vless://$config_id@$cf_clean_ip_domain:2053?type=httpupgrade&security=tls&fp=chrome&alpn=http%2F1.1&sni=$subdomain#vless httpupgrade cf",
+    "link": "vless://$config_id@$cf_clean_ip_domain:2053?type=httpupgrade&security=tls&fp=randomized&alpn=h2%2Chttp%2F1.1&sni=$subdomain#vless httpupgrade cf",
     "cloudflare": true,
     "inbound": {
-      "tag": "VLESS HTTPUPGRADE TLS",
+      "tag": "VLESS HTTPUPGRADE TLS CDN",
       "listen": "0.0.0.0",
       "port": 2053,
       "protocol": "vless",
@@ -163,8 +161,7 @@
               ]
             }
           ],
-          "minVersion": "1.2",
-          "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+          "minVersion": "1.3"
         }
       },
       "sniffing": {
@@ -179,9 +176,10 @@
   },
   {
     "name": "vless-grpc-tls-direct",
-    "link": "vless://$config_id@$direct_subdomain:8880?type=grpc&serviceName=&authority=&security=tls&fp=&alpn=h2%2Chttp%2F1.1#vless grpc tls direct",
+    "link": "vless://$config_id@$direct_subdomain:8880?type=grpc&serviceName=&authority=&security=tls&fp=randomized&alpn=h2%2Chttp%2F1.1#vless grpc tls direct",
     "cloudflare": false,
     "inbound": {
+      "tag": "VLESS GRPC TLS DIRECT",
       "listen": "0.0.0.0",
       "port": 8880,
       "protocol": "vless",
@@ -199,16 +197,12 @@
       "streamSettings": {
         "grpcSettings": {
           "authority": "",
-          "multiMode": false,
+          "multiMode": true,
           "serviceName": ""
         },
         "network": "grpc",
         "security": "tls",
         "tlsSettings": {
-          "alpn": [
-            "h2",
-            "http/1.1"
-          ],
           "certificates": [
             {
               "certificate": [
@@ -221,20 +215,17 @@
             }
           ],
           "cipherSuites": "",
-          "maxVersion": "1.3",
-          "minVersion": "1.1",
-          "rejectUnknownSni": false,
+          "minVersion": "1.3",
+          "rejectUnknownSni": true,
           "serverName": ""
         }
       },
-      "tag": "inbound-2086",
       "sniffing": {
         "enabled": false,
         "destOverride": [
           "http",
           "tls",
-          "quic",
-          "fakedns"
+          "quic"
         ]
       }
     }
@@ -244,6 +235,7 @@
     "link": "vless://$config_id@$cf_clean_ip_domain:2083?type=grpc&serviceName=&authority=&security=tls&fp=safari&alpn=h2%2Chttp%2F1.1&sni=$subdomain#vless grpc tls cf",
     "cloudflare": true,
     "inbound": {
+      "tag": "VLESS GRPC TLS CDN",
       "listen": "0.0.0.0",
       "port": 2083,
       "protocol": "vless",
@@ -267,10 +259,6 @@
         "network": "grpc",
         "security": "tls",
         "tlsSettings": {
-          "alpn": [
-            "h2",
-            "http/1.1"
-          ],
           "certificates": [
             {
               "certificate": [
@@ -296,21 +284,17 @@
               ]
             }
           ],
-          "cipherSuites": "",
-          "maxVersion": "1.3",
-          "minVersion": "1.1",
-          "rejectUnknownSni": false,
+          "minVersion": "1.3",
+          "rejectUnknownSni": true,
           "serverName": "$subdomain"
         }
       },
-      "tag": "inbound-2096",
       "sniffing": {
         "enabled": false,
         "destOverride": [
           "http",
           "tls",
-          "quic",
-          "fakedns"
+          "quic"
         ]
       }
     }
