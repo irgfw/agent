@@ -221,7 +221,6 @@ xray_config = {
                 "outboundTag": "blocked",
                 "ip": [
                     "geoip:private",
-                    "geoip:ru",
                     "ext:geoip_IR.dat:ir"
                 ]
             },
@@ -236,12 +235,9 @@ xray_config = {
                 "type": "field",
                 "outboundTag": "blocked",
                 "domain": [
-                    "geosite:category-gov-ru",
-                    "regexp:.*\\.ru$",
                     "regexp:.*\\.ir$",
                     "regexp:.*\\.xn--mgba3a4f16a$",
                     "ext:geosite_IR.dat:ir",
-                    "geosite:category-ads-all",
                     "ext:geosite_IR.dat:category-ads-all"
                 ]
             }
