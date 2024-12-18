@@ -1,5 +1,68 @@
 [
   {
+    "name": "vless-tcp-tls",
+    "link": "vless://$config_id@$direct_subdomain:2053?type=tcp&security=tls&fp=&alpn=h2%2Chttp%2F1.1&sni=$direct_subdomain#vless tcp tls direct",
+    "cloudflare": false,
+    "inbound": {
+      "listen": "0.0.0.0",
+      "port": 2053,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "email": "$config_id",
+            "flow": "",
+            "id": "$config_id"
+          }
+        ],
+        "decryption": "none",
+        "fallbacks": []
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tcpSettings": {
+          "acceptProxyProtocol": false,
+          "header": {
+            "type": "none"
+          }
+        },
+        "tlsSettings": {
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ],
+          "certificates": [
+            {
+              "certificate": [
+                "$cert_public"
+              ],
+              "key": [
+                "$cert_private"
+              ],
+              "ocspStapling": 3600
+            }
+          ],
+          "cipherSuites": "",
+          "maxVersion": "1.3",
+          "minVersion": "1.1",
+          "rejectUnknownSni": false,
+          "serverName": "$direct_subdomain"
+        }
+      },
+      "tag": "inbound-2053",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic",
+          "fakedns"
+        ]
+      }
+    }
+  },
+  {
     "name": "vless-grpc-cdn",
     "link": "vless://$config_id@$cf_clean_ip_domain:2096?type=grpc&serviceName=&authority=&security=tls&fp=safari&alpn=h2%2Chttp%2F1.1&sni=$subdomain#vless grpc cf",
     "cloudflare": true,
@@ -76,69 +139,6 @@
     }
   },
   {
-    "name": "vless-tcp-tls",
-    "link": "vless://$config_id@$direct_subdomain:2053?type=tcp&security=tls&fp=&alpn=h2%2Chttp%2F1.1&sni=$direct_subdomain#vless tcp tls direct",
-    "cloudflare": false,
-    "inbound": {
-      "listen": "0.0.0.0",
-      "port": 2053,
-      "protocol": "vless",
-      "settings": {
-        "clients": [
-          {
-            "email": "$config_id",
-            "flow": "",
-            "id": "$config_id"
-          }
-        ],
-        "decryption": "none",
-        "fallbacks": []
-      },
-      "streamSettings": {
-        "network": "tcp",
-        "security": "tls",
-        "tcpSettings": {
-          "acceptProxyProtocol": false,
-          "header": {
-            "type": "none"
-          }
-        },
-        "tlsSettings": {
-          "alpn": [
-            "h2",
-            "http/1.1"
-          ],
-          "certificates": [
-            {
-              "certificate": [
-                "$cert_public"
-              ],
-              "key": [
-                "$cert_private"
-              ],
-              "ocspStapling": 3600
-            }
-          ],
-          "cipherSuites": "",
-          "maxVersion": "1.3",
-          "minVersion": "1.1",
-          "rejectUnknownSni": false,
-          "serverName": "$direct_subdomain"
-        }
-      },
-      "tag": "inbound-2053",
-      "sniffing": {
-        "enabled": false,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic",
-          "fakedns"
-        ]
-      }
-    }
-  },
-  {
     "name": "vless-grpc-tls",
     "link": "vless://$config_id@$direct_subdomain:2086?type=grpc&serviceName=&authority=&security=tls&fp=&alpn=h2%2Chttp%2F1.1#vless grpc tls",
     "cloudflare": false,
@@ -189,48 +189,6 @@
         }
       },
       "tag": "inbound-2086",
-      "sniffing": {
-        "enabled": false,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic",
-          "fakedns"
-        ]
-      }
-    }
-  },
-  {
-    "name": "vless-quic",
-    "link": "vless://$config_id@$server_ip:2082?type=quic&quicSecurity=aes-128-gcm&key=$config_id&headerType=srtp&security=none#vless quic",
-    "cloudflare": false,
-    "inbound": {
-      "listen": null,
-      "port": 2082,
-      "protocol": "vless",
-      "settings": {
-        "clients": [
-          {
-            "email": "$config_id",
-            "flow": "",
-            "id": "$config_id"
-          }
-        ],
-        "decryption": "none",
-        "fallbacks": []
-      },
-      "streamSettings": {
-        "network": "quic",
-        "quicSettings": {
-          "header": {
-            "type": "srtp"
-          },
-          "key": "$config_id",
-          "security": "aes-128-gcm"
-        },
-        "security": "none"
-      },
-      "tag": "inbound-2082",
       "sniffing": {
         "enabled": false,
         "destOverride": [
